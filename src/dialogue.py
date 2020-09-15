@@ -3,7 +3,7 @@ import os
 # from datetime import datetime
 # import json
 
-from backend_util.src.log import Logger
+from single_log.log import Logger
 from config import Config
 from backend_util.src.msg import Msg
 from backend_util.src import aes

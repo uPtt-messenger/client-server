@@ -1,7 +1,7 @@
 from backend_util.src.util import sha256
 from backend_util.src.msg import Msg
 from backend_util.src.errorcode import ErrorCode
-from backend_util.src.log import Logger
+from single_log.log import Logger
 
 
 class BlackList:

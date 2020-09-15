@@ -1,4 +1,4 @@
-from backend_util.src.log import Logger
+from single_log.log import Logger
 from backend_util.src.errorcode import ErrorCode
 from backend_util.src.msg import Msg
 from tag import Tag

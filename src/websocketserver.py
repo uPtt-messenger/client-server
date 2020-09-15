@@ -5,7 +5,7 @@ import time
 import threading
 import json
 
-from backend_util.src.log import Logger
+from single_log.log import Logger
 from backend_util.src.msg import Msg
 
 
