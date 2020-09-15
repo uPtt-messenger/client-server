@@ -36,8 +36,11 @@ def write_config(path, data):
 
 
 class Config:
+
     level_USER = 0
     level_SYSTEM = 1
+
+    app_name = 'uPtt'
 
     key_aes_key = 'aes_key'
     key_version = 'version'
@@ -60,6 +63,7 @@ class Config:
         # 因為會被存起來
 
         self.config_file_name = 'config.json'
+        self.system_config_file_name = 'system_config.json'
         self.friend_file_name = 'friend.txt'
 
         self.config_path = None
@@ -72,9 +76,10 @@ class Config:
                 '作業系統',
                 'Windows')
 
-        self.config_path = os.path.abspath(os.getcwd())
+            # C:\ProgramData
+            self.config_path = f"{os.environ['ALLUSERSPROFILE']}/{self.app_name}"
 
-        self.system_config_path = f'{self.config_path}/{self.config_file_name}'
+        self.system_config_path = f'{self.config_path}/{self.system_config_file_name}'
         self.user_config_path = None
 
         if not os.path.exists(self.config_path):
