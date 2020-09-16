@@ -8,7 +8,7 @@ class Feedback:
     def __init__(self, console_obj):
         self.console = console_obj
         
-        self.logger = Logger('FeedBack', Logger.INFO)
+        self.logger = Logger('FeedBack', self.console.config.log_level, handler=self.console.config.log_handler)
 
         console_obj.event.close.append(self.event_close)
 

@@ -7,7 +7,7 @@ from single_log.log import Logger
 class BlackList:
     def __init__(self, console_boj):
         self.console = console_boj
-        self.logger = Logger('BlackList', Logger.INFO)
+        self.logger = Logger('BlackList', self.console.config.log_level, handler=self.console.config.log_handler)
 
         self.console.event.login.append(self.event_login)
 

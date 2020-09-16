@@ -21,7 +21,7 @@ class Command:
 
         self.console = console_obj
 
-        self.logger = Logger('Command', Logger.INFO)
+        self.logger = Logger('Command', self.console.config.log_level, handler=self.console.config.log_handler)
 
     def check_token(self, msg):
         if msg is None:

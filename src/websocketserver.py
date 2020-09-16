@@ -15,7 +15,7 @@ class WsServer:
 
         self.console = console_obj
 
-        self.logger = Logger('WS', Logger.INFO)
+        self.logger = Logger('WS', self.console.config.log_level, handler=self.console.config.log_handler)
         self.thread = None
         self.start_error = False
         self.run_session = True
@@ -134,7 +134,7 @@ class WsServer:
         self.run_session = self.run
 
     def server_setup(self):
-        logger = Logger('WS', Logger.INFO)
+        logger = Logger('WS', self.console.config.log_level, handler=self.console.config.log_handler)
 
         logger.show_value(
             Logger.INFO,

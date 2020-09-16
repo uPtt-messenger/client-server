@@ -15,7 +15,7 @@ class Dialogue:
         self.path = f'{self.console.config.config_path}/{self.console.ptt_id}/dialogue'
         self.data = dict()
 
-        self.logger = Logger('Dialogue', Logger.INFO)
+        self.logger = Logger('Dialogue', self.console.config.log_level, handler=self.console.config.log_handler)
 
         if not os.path.exists(self.path):
             os.makedirs(self.path)

@@ -12,7 +12,7 @@ from backend_util.src.msg import Msg
 msg_str = None
 recv_msg = None
 token = None
-logger = Logger('自我測試', Logger.INFO)
+logger = Logger('自我測試', self.console.config.log_level, handler=self.console.config.log_handler)
 
 async def ws_send():
     global msg_str

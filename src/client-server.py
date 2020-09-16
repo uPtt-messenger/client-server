@@ -3,8 +3,11 @@ import sys
 import time
 import threading
 
+from PyPtt import PTT
 from single_log.log import Logger
+
 import websocketserver
+import config
 from config import Config
 from command import Command
 from pttadapter import PTT_Adapter
@@ -14,34 +17,38 @@ from console import Console
 from dynamic_data import DynamicData
 from black_list import BlackList
 
-LogPath = None
+log_path = None
 
 
 def log_to_file(msg):
-    global LogPath
-    if LogPath is None:
+    global log_path
+    if log_path is None:
         desktop = os.path.join(
             os.path.join(
                 os.environ['USERPROFILE']
             ),
             'Desktop')
 
-        LogPath = f'{desktop}/uPttLog.txt'
+        log_path = f'{desktop}/uPtt_log.txt'
 
-        print(LogPath)
+        print(log_path)
 
-    with open(LogPath, 'a', encoding='utf8') as f:
+    with open(log_path, 'a', encoding='utf8') as f:
         f.write(f'{msg}\n')
 
 
 if __name__ == '__main__':
+
+    if '-debug' in sys.argv:
+        config.log_handler = log_to_file
+        config.log_level = Logger.TRACE
 
     config_obj = Config()
 
     console_obj = Console()
     console_obj.config = config_obj
 
-    logger = Logger('Client-server', Logger.INFO)
+    logger = Logger('Client-server', self.console.config.log_level, handler=console_obj.config.log_handler)
 
     logger.show_value(
         Logger.INFO,
@@ -51,11 +58,12 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         print(sys.argv)
 
-    if '-debug' in sys.argv or '-trace' in sys.argv:
-        config_obj.LogHandler = log_to_file
+    if '-debug' in sys.argv:
+        config_obj.log_level = Logger.TRACE
+        config_obj.log_handler = log_to_file
 
-    if '-trace' in sys.argv:
-        config_obj.LogHandler = Logger.TRACE
+        config_obj.ptt_log_level = PTT.log.level.TRACE
+        config_obj.log_handler = log_to_file
 
     if '-dev' in sys.argv:
         console_obj.run_mode = 'dev'

@@ -23,7 +23,7 @@ class PTT_Adapter:
         console_obj.event.close.append(self.event_close)
         console_obj.event.send_waterball.append(self.event_send_waterball)
 
-        self.logger = Logger('PTTAdapter', Logger.INFO)
+        self.logger = Logger('PTTAdapter', self.console.config.log_level, handler=self.console.config.log_handler)
 
         self.dialogue = None
 

@@ -2,6 +2,10 @@ import json
 import os
 
 from single_log.log import Logger
+from PyPtt import PTT
+
+log_handler = None
+log_level = Logger.INFO
 
 
 def get_value_func(data, key):
@@ -36,7 +40,6 @@ def write_config(path, data):
 
 
 class Config:
-
     level_USER = 0
     level_SYSTEM = 1
 
@@ -50,8 +53,12 @@ class Config:
     query_cycle = 3.0 + quick_response_time
     update_cycle = 180
     port = 50732
+
+    log_level = Logger.INFO
+    log_handler = None
+
+    ptt_log_level = PTT.log.level.INFO
     ptt_log_handler = None
-    ptt_log_level = Logger.INFO
 
     feedback_port = 57983
     feedback_frequency = 60
@@ -68,7 +75,7 @@ class Config:
 
         self.config_path = None
 
-        self.logger = Logger('Config', Logger.INFO)
+        self.logger = Logger('Config', log_level, handler=log_handler)
 
         if os.name == 'nt':
             self.logger.show_value(

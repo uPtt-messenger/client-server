@@ -12,7 +12,7 @@ class DynamicData:
         self.console = console_obj
         self.console.event.close.append(self.event_close)
 
-        self.logger = Logger('DynamicData', Logger.INFO)
+        self.logger = Logger('DynamicData', self.console.config.log_level, handler=self.console.config.log_handler)
 
         self.run_update = True
         self.update_state = False
