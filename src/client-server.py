@@ -48,7 +48,7 @@ if __name__ == '__main__':
     console_obj = Console()
     console_obj.config = config_obj
 
-    logger = Logger('Client-server', self.console.config.log_level, handler=console_obj.config.log_handler)
+    logger = Logger('Client-server', config.log_level, handler=console_obj.config.log_handler)
 
     logger.show_value(
         Logger.INFO,
