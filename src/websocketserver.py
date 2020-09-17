@@ -28,11 +28,7 @@ class WsServer:
             daemon=True)
         self.thread.start()
         time.sleep(2)
-        if self.start_error:
-            self.logger.show(
-                Logger.INFO,
-                '啟動失敗')
-        else:
+        if not self.start_error:
             self.logger.show(
                 Logger.INFO,
                 '啟動成功')
@@ -43,7 +39,7 @@ class WsServer:
             Logger.INFO,
             '執行終止程序')
 
-        while not self.server_start:
+        while not self.server_start and not self.start_error:
             time.sleep(0.1)
 
         self.run_session = False
@@ -147,9 +143,7 @@ class WsServer:
         start_server = websockets.serve(
             self.handler,
             "localhost",
-            self.console.config.port,
-        )
-
+            self.console.config.port)
 
         try:
             asyncio.get_event_loop().run_until_complete(start_server)
@@ -157,15 +151,12 @@ class WsServer:
             self.start_error = True
 
         if self.start_error:
-            return
+            self.logger.show(Logger.INFO, '啟動伺服器失敗')
+        else:
 
-        self.server_start = True
+            self.server_start = True
 
-        asyncio.get_event_loop().run_forever()
-
-        logger.show(
-            Logger.INFO,
-            '關閉伺服器')
+            asyncio.get_event_loop().run_forever()
 
 
 if __name__ == '__main__':
