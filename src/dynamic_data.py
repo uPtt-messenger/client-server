@@ -9,10 +9,15 @@ from config import Config
 
 class DynamicData:
     def __init__(self, console_obj, run=True):
+
+        self.logger = Logger('DynamicData', console_obj.config.log_level, handler=console_obj.config.log_handler)
+
+        self.logger.show(
+            Logger.INFO,
+            '初始化')
+
         self.console = console_obj
         self.console.event.close.append(self.event_close)
-
-        self.logger = Logger('DynamicData', self.console.config.log_level, handler=self.console.config.log_handler)
 
         self.run_update = True
         self.update_state = False

@@ -48,13 +48,6 @@ if __name__ == '__main__':
     console_obj = Console()
     console_obj.config = config_obj
 
-    logger = Logger('Client-server', config.log_level, handler=console_obj.config.log_handler)
-
-    logger.show_value(
-        Logger.INFO,
-        'uPtt 版本',
-        config_obj.version)
-
     if len(sys.argv) > 1:
         print(sys.argv)
 
@@ -64,6 +57,17 @@ if __name__ == '__main__':
 
         config_obj.ptt_log_level = PTT.log.level.TRACE
         config_obj.log_handler = log_to_file
+
+    logger = Logger('Client-server', config.log_level, handler=console_obj.config.log_handler)
+
+    logger.show_value(
+        Logger.INFO,
+        'uPtt 版本',
+        config_obj.version)
+
+    logger.show(
+        Logger.INFO,
+        '初始化')
 
     if '-dev' in sys.argv:
         console_obj.run_mode = 'dev'

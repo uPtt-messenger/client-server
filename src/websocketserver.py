@@ -13,9 +13,14 @@ class WsServer:
 
     def __init__(self, console_obj):
 
+        self.logger = Logger('WS', console_obj.config.log_level, handler=console_obj.config.log_handler)
+
+        self.logger.show(
+            Logger.INFO,
+            '初始化')
+
         self.console = console_obj
 
-        self.logger = Logger('WS', self.console.config.log_level, handler=self.console.config.log_handler)
         self.thread = None
         self.start_error = False
         self.run_session = True

@@ -102,9 +102,8 @@ class Config:
         self.user_data = dict()
         self.id = None
 
-        self.logger.show_value(
+        self.logger.show(
             Logger.INFO,
-            '設定檔',
             '初始化')
 
     def init_user(self, ptt_id):
