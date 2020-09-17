@@ -23,6 +23,11 @@ class DynamicData:
         self.run_update = True
         self.update_state = False
 
+        self.logger.show(
+            Logger.INFO,
+            '初始化',
+            '完成')
+
         self.update()
 
         if run:
@@ -110,7 +115,7 @@ class DynamicData:
 
         for _, (hash_value, tag) in enumerate(self.tag_list.items()):
             self.logger.show(
-                Logger.INFO,
+                Logger.DEBUG,
                 'tag',
                 tag)
 

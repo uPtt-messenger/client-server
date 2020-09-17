@@ -18,7 +18,8 @@ class PTT_Adapter:
 
         self.logger.show(
             Logger.INFO,
-            '初始化')
+            '初始化',
+            '啟動')
 
         self.console = console_obj
 
@@ -48,10 +49,14 @@ class PTT_Adapter:
 
         self.init_bot()
 
+        self.logger.show(
+            Logger.INFO,
+            '初始化',
+            '完成')
+
         self.thread = threading.Thread(
             target=self.run,
-            daemon=True
-        )
+            daemon=True)
         self.thread.start()
         time.sleep(0.5)
 
@@ -107,13 +112,18 @@ class PTT_Adapter:
 
         self.logger.show(
             Logger.INFO,
+            'PTT 溝通核心初始化',
             '啟動')
 
         self.bot = PTT.API(
             log_handler=self.console.config.ptt_log_handler,
             # log_level=self.console.config.ptt_log_level
-            log_level=Logger.SILENT
-        )
+            log_level=Logger.SILENT)
+
+        self.logger.show(
+            Logger.INFO,
+            'PTT 溝通核心初始化',
+            '完成')
         while self.run_server:
             # 快速反應區
             start_time = end_time = time.time()
