@@ -60,19 +60,20 @@ if __name__ == '__main__':
 
     logger = Logger('Client-server', config.log_level, handler=console_obj.config.log_handler)
 
-    logger.show_value(
+    logger.show(
         Logger.INFO,
         'uPtt 版本',
         config_obj.version)
 
     logger.show(
         Logger.INFO,
-        '初始化')
+        '初始化',
+        '啟動')
 
     if '-dev' in sys.argv:
         console_obj.run_mode = 'dev'
 
-    logger.show_value(
+    logger.show(
         Logger.INFO,
         '執行模式',
         console_obj.run_mode)
@@ -121,6 +122,12 @@ if __name__ == '__main__':
         for e in event_console.close:
             e()
     else:
+
+        logger.show(
+            Logger.INFO,
+            '初始化',
+            '完成')
+
         while run_server:
             try:
                 time.sleep(0.5)

@@ -13,7 +13,7 @@ class BlackList:
 
     def event_login(self, ptt_id, ptt_pw):
         if self.is_black_user(ptt_id):
-            self.logger.show_value(
+            self.logger.show(
                 Logger.INFO,
                 '黑名單',
                 ptt_id)

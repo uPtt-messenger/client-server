@@ -290,7 +290,7 @@ class PTT_Adapter:
                     waterball_content = waterball.content
                     waterball_date = waterball.date
 
-                    self.logger.show_value(
+                    self.logger.show(
                         Logger.INFO,
                         f'收到來自 {waterball_id} 的水球',
                         f'[{waterball_content}][{waterball_date}]')

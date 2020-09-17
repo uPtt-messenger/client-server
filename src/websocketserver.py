@@ -17,7 +17,8 @@ class WsServer:
 
         self.logger.show(
             Logger.INFO,
-            '初始化')
+            '初始化',
+            '啟動')
 
         self.console = console_obj
 
@@ -26,6 +27,11 @@ class WsServer:
         self.run_session = True
         self.run = True
         self.server_start = False
+
+        self.logger.show(
+            Logger.INFO,
+            '初始化',
+            '完成')
 
     def start(self):
         self.thread = threading.Thread(
@@ -64,11 +70,11 @@ class WsServer:
                     print('Connection Close: recv fail')
                     raise ValueError('Connection Close: recv fail')
 
-                self.logger.show_value(
+                self.logger.show(
                     Logger.INFO,
                     '收到字串',
                     recv_msg_str)
-                self.logger.show_value(
+                self.logger.show(
                     Logger.INFO,
                     '路徑',
                     path)
@@ -76,7 +82,7 @@ class WsServer:
                 try:
                     recv_msg = Msg(strobj=recv_msg_str)
                 except json.JSONDecodeError:
-                    self.logger.show_value(
+                    self.logger.show(
                         Logger.INFO,
                         '丟棄錯誤訊息',
                         recv_msg_str)
@@ -87,7 +93,7 @@ class WsServer:
                     token = path[path.find('token=') + len('token='):]
                     if '&' in token:
                         token = token[:token.find('&')]
-                    self.logger.show_value(
+                    self.logger.show(
                         Logger.INFO,
                         '收到權杖',
                         token)
@@ -137,7 +143,7 @@ class WsServer:
     def server_setup(self):
         logger = Logger('WS', self.console.config.log_level, handler=self.console.config.log_handler)
 
-        logger.show_value(
+        logger.show(
             Logger.INFO,
             '啟動伺服器',
             f'ws://127.0.0.1:{self.console.config.port}')

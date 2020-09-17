@@ -25,14 +25,14 @@ async def ws_send():
     else:
         uri = f"ws://localhost:{config.port}?token={token}"
     async with websockets.connect(uri) as ws:
-        logger.show_value(
+        logger.show(
             '自我測試',
             Logger.INFO,
             '準備送出',
             msg_str)
         await ws.send(msg_str)
         recv_msg_str = await ws.recv()
-        logger.show_value(
+        logger.show(
             '自我測試',
             Logger.INFO,
             '收到',
@@ -79,7 +79,7 @@ def get_password(password_file):
 
 config = Config()
 
-logger.show_value(
+logger.show(
     '自我測試',
     Logger.INFO,
     'uPtt 版本',
@@ -112,7 +112,7 @@ logger.show(
 
 token = recv_msg.data['payload']['token']
 
-logger.show_value(
+logger.show(
     Logger.INFO,
     '收到權杖',
     token

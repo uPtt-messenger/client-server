@@ -23,7 +23,7 @@ class Dialogue:
         else:
             self.aes_key = self.console.config.get_value(Config.level_USER, Config.key_aes_key)
 
-            self.logger.show_value(
+            self.logger.show(
                 Logger.DEBUG,
                 '載入金鑰',
                 self.aes_key)
@@ -40,7 +40,7 @@ class Dialogue:
             dialogue_file_list = [x for x in dialogue_file_list if x.endswith('.txt')]
 
             for dialogue_file in dialogue_file_list:
-                self.logger.show_value(
+                self.logger.show(
                     Logger.INFO,
                     '載入對話紀錄',
                     dialogue_file)
@@ -71,7 +71,7 @@ class Dialogue:
                         decrypt_data = aes.decrypt(self.aes_key, cipher_msg)
                         decrypt_msg = Msg(strobj=decrypt_data)
 
-                    self.logger.show_value(
+                    self.logger.show(
                         Logger.DEBUG,
                         '解密對話',
                         decrypt_msg)
@@ -84,7 +84,7 @@ class Dialogue:
     def save(self, current_msg: Msg):
         target_id = current_msg.get(Msg.key_ptt_id)
 
-        self.logger.show_value(
+        self.logger.show(
             Logger.INFO,
             '儲存對話紀錄',
             target_id)

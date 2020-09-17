@@ -14,7 +14,8 @@ class DynamicData:
 
         self.logger.show(
             Logger.INFO,
-            '初始化')
+            '初始化',
+            '啟動')
 
         self.console = console_obj
         self.console.event.close.append(self.event_close)
@@ -90,7 +91,7 @@ class DynamicData:
         self.announce = self.data['announce']
         self.online_server = self.data['online_server']
 
-        self.logger.show_value(
+        self.logger.show(
             Logger.INFO,
             '發布版本',
             self.version)
@@ -108,14 +109,14 @@ class DynamicData:
             del self.tag_list[del_key]
 
         for _, (hash_value, tag) in enumerate(self.tag_list.items()):
-            self.logger.show_value(
+            self.logger.show(
                 Logger.INFO,
                 'tag',
                 tag)
 
         if self.black_list:
             for block_user in self.black_list:
-                self.logger.show_value(
+                self.logger.show(
                     Logger.INFO,
                     'block_user',
                     block_user)
@@ -124,7 +125,7 @@ class DynamicData:
                 Logger.INFO,
                 '無黑名單')
 
-        self.logger.show_value(
+        self.logger.show(
             Logger.INFO,
             'online_server',
             self.online_server)

@@ -76,9 +76,13 @@ class Config:
         self.config_path = None
 
         self.logger = Logger('Config', log_level, handler=log_handler)
+        self.logger.show(
+            Logger.INFO,
+            '初始化',
+            '啟動')
 
         if os.name == 'nt':
-            self.logger.show_value(
+            self.logger.show(
                 Logger.INFO,
                 '作業系統',
                 'Windows')
@@ -104,10 +108,11 @@ class Config:
 
         self.logger.show(
             Logger.INFO,
-            '初始化')
+            '初始化',
+            '完成')
 
     def init_user(self, ptt_id):
-        self.logger.show_value(
+        self.logger.show(
             Logger.INFO,
             '使用者空間初始化',
             ptt_id)
@@ -118,7 +123,7 @@ class Config:
 
             # init user config here
 
-        self.logger.show_value(
+        self.logger.show(
             Logger.INFO,
             '使用者設定初始化',
             ptt_id)
