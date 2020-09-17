@@ -1,6 +1,4 @@
 import datetime
-import random
-import string
 import threading
 import time
 
@@ -10,7 +8,7 @@ from single_log.log import Logger
 from dialogue import Dialogue
 from backend_util.src.errorcode import ErrorCode
 from backend_util.src.msg import Msg
-from backend_util.src.util import sha256
+from backend_util.src import util
 
 
 class PTT_Adapter:
@@ -141,13 +139,17 @@ class PTT_Adapter:
                         self.res_msg = Msg(
                             operate=Msg.key_login,
                             code=ErrorCode.Success,
-                            msg='Login success'
-                        )
+                            msg='Login success')
 
-                        letters = string.ascii_lowercase
-                        rand_str = ''.join(random.choice(letters) for i in range(256))
+                        if self.console.run_mode == 'dev':
+                            hash_id = util.sha256(self.ptt_id)
+                            if hash_id == 'c2c10daa1a61f1757019e995223ad346284e13462c62ee9dccac433445248899':
+                                token = util.sha256(f'{self.ptt_id} fixed token')
+                            else:
+                                token = util.generate_token()
+                        else:
+                            token = util.generate_token()
 
-                        token = sha256(f'{self.ptt_id}{self.ptt_pw}{rand_str}')
                         self.console.login_token = token
 
                         payload = Msg()
@@ -168,20 +170,17 @@ class PTT_Adapter:
                         self.res_msg = Msg(
                             operate=Msg.key_login,
                             code=ErrorCode.LoginFail,
-                            msg='Login fail'
-                        )
+                            msg='Login fail')
                     except PTT.exceptions.WrongIDorPassword:
                         self.res_msg = Msg(
                             operate=Msg.key_login,
                             code=ErrorCode.LoginFail,
-                            msg='ID or PW error'
-                        )
+                            msg='ID or PW error')
                     except PTT.exceptions.LoginTooOften:
                         self.res_msg = Msg(
                             operate=Msg.key_login,
                             code=ErrorCode.LoginFail,
-                            msg='Please wait a moment before login'
-                        )
+                            msg='Please wait a moment before login')
                     self.ptt_id = None
                     self.ptt_pw = None
 
@@ -271,8 +270,7 @@ class PTT_Adapter:
                 '慢速輪詢')
 
             waterball_list = self.bot.get_waterball(
-                PTT.data_type.waterball_operate_type.CLEAR
-            )
+                PTT.data_type.waterball_operate_type.CLEAR)
 
             self.logger.show(
                 Logger.DEBUG,
