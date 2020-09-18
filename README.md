@@ -6,6 +6,7 @@
 #### 0.0.1 beta
 
 ## 編譯
+#### 請先 clone [uPtt](https://github.com/uPtt-messenger/uPtt) and submodules([backend_util](https://github.com/uPtt-messenger/backend_util), [client-server](https://github.com/uPtt-messenger/client-server))
 ```batch
 cd uPtt/client-server
 pip install -r requirements.txt
