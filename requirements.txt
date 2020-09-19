@@ -1,5 +1,5 @@
 requests
 websockets
 PyPtt
-pyaes
+pycryptodome
 single_log
