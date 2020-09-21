@@ -6,14 +6,16 @@ import threading
 from PyPtt import PTT
 from single_log.log import Logger
 
+from backend_util.src.console import Console
+
 import websocketserver
-import config
-from config import Config
+from backend_util.src import config
+from backend_util.src.config import Config
 from command import Command
 from pttadapter import PTT_Adapter
 from feedback import Feedback
-from event import EventConsole
-from console import Console
+from backend_util.src.event import EventConsole
+
 from dynamic_data import DynamicData
 from black_list import BlackList
 
@@ -78,7 +80,7 @@ if __name__ == '__main__':
         '執行模式',
         console_obj.run_mode)
 
-    event_console = EventConsole()
+    event_console = EventConsole(console_obj)
     console_obj.event = event_console
 
     dynamic_data_obj = DynamicData(console_obj)
@@ -108,10 +110,16 @@ if __name__ == '__main__':
         global run_server
         run_server = False
 
+
     ws_server = websocketserver.WsServer(console_obj)
 
-    event_console.close.append(ws_server.stop)
-    event_console.close.append(event_close)
+    event_console.register(
+        EventConsole.key_close,
+        ws_server.stop)
+
+    event_console.register(
+        EventConsole.key_close,
+        event_close)
 
     ws_server.start()
 
@@ -119,8 +127,7 @@ if __name__ == '__main__':
         logger.show(
             Logger.INFO,
             'websocket client-server startup error')
-        for e in event_console.close:
-            e()
+        event_console.execute(EventConsole.key_close)
     else:
 
         logger.show(
@@ -132,8 +139,7 @@ if __name__ == '__main__':
             try:
                 time.sleep(0.5)
             except KeyboardInterrupt:
-                for e in event_console.close:
-                    e()
+                event_console.execute(EventConsole.key_close)
                 break
 
     logger.show(

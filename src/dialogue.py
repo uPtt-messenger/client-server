@@ -4,9 +4,9 @@ import os
 # import json
 
 from single_log.log import Logger
-from config import Config
+from backend_util.src.config import Config
 from backend_util.src.msg import Msg
-from backend_util.src import aes
+# from backend_util.src import aes
 
 
 class Dialogue:
@@ -68,14 +68,14 @@ class Dialogue:
                         cipher_msg = Msg(dictobj=cipher_msg_str)
                         # print(cipher_msg)
 
-                        decrypt_data = aes.decrypt(self.aes_key, cipher_msg)
-                        decrypt_msg = Msg(strobj=decrypt_data)
+                        # decrypt_data = aes.decrypt(self.aes_key, cipher_msg)
+                        # decrypt_msg = Msg(strobj=decrypt_data)
 
-                    self.logger.show(
-                        Logger.DEBUG,
-                        '解密對話',
-                        decrypt_msg)
-                    self.data[target_id].append(decrypt_msg)
+                    # self.logger.show(
+                    #     Logger.DEBUG,
+                    #     '解密對話',
+                    #     decrypt_msg)
+                    # self.data[target_id].append(decrypt_msg)
 
             self.logger.show(
                 Logger.INFO,
@@ -97,20 +97,20 @@ class Dialogue:
         file_name = f'{target_id}.txt'
         current_path = f'{self.path}/{file_name}'
 
-        if self.aes_key is None:
-            self.aes_key = self.console.config.get_value(Config.level_USER, Config.key_aes_key)
-            if self.aes_key is None:
-                self.aes_key = aes.gen_key()
-                self.console.config.set_value(Config.level_USER, Config.key_aes_key, self.aes_key)
+        # if self.aes_key is None:
+        #     self.aes_key = self.console.config.get_value(Config.level_USER, Config.key_aes_key)
+        #     if self.aes_key is None:
+        #         self.aes_key = aes.gen_key()
+        #         self.console.config.set_value(Config.level_USER, Config.key_aes_key, self.aes_key)
+        #
+        # encrypt_msg = aes.encrypt(self.aes_key, str(current_msg))
 
-        encrypt_msg = aes.encrypt(self.aes_key, str(current_msg))
+        # restore_msg = Msg()
+        # restore_msg.add(Msg.key_api_version, 1)
+        # restore_msg.add(Msg.key_cipher_msg, encrypt_msg)
 
-        restore_msg = Msg()
-        restore_msg.add(Msg.key_api_version, 1)
-        restore_msg.add(Msg.key_cipher_msg, encrypt_msg)
-
-        with open(current_path, 'a') as fp:
-            fp.write(str(restore_msg) + '\n')
+        # with open(current_path, 'a') as fp:
+        #     fp.write(str(restore_msg) + '\n')
 
     def get(self, target_id: str, count: int, index: int = 0):
         if target_id not in self.data:
