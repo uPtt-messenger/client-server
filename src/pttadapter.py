@@ -11,6 +11,7 @@ from backend_util.src.msg import Msg
 from backend_util.src import util
 from backend_util.src.event import EventConsole
 
+
 class PTT_Adapter:
     def __init__(self, console_obj):
 
@@ -102,7 +103,9 @@ class PTT_Adapter:
 
         return self.res_msg
 
-    def event_send_waterball(self, waterball_id, waterball_content):
+    def event_send_waterball(self, parameter: tuple):
+
+        waterball_id, waterball_content = parameter
 
         self.send_waterball_complete = False
 
@@ -356,8 +359,8 @@ class PTT_Adapter:
 
                     # self.dialog.recv(waterball_target, waterball_content, waterball_date)
 
-                    for e in self.console.event.recv_waterball:
-                        e(waterball_id, waterball_content, waterball_timestamp)
+                    p = (waterball_id, waterball_content, waterball_timestamp)
+                    self.console.event.execute(EventConsole.key_recv_waterball, parameter=p)
 
                     self.console.command.push(push_msg)
 

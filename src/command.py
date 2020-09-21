@@ -113,7 +113,7 @@ class Command:
                 '執行丟水球程序')
             # for e in self.console.event.send_waterball:
             #     e(waterball_id, waterball_content)
-            self.console.event.execute(EventConsole.key_send_waterball, paramter=(waterball_id, waterball_content))
+            self.console.event.execute(EventConsole.key_send_waterball, parameter=(waterball_id, waterball_content))
             self.logger.show(
                 Logger.INFO,
                 '丟水球程序全數完成')
