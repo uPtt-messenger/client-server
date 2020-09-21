@@ -6,7 +6,7 @@ import time
 from PyPtt import PTT
 
 from single_log.log import Logger
-from config import Config
+from backend_util.src.config import Config
 from backend_util.src.msg import Msg
 
 msg_str = None

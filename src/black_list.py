@@ -2,7 +2,7 @@ from single_log.log import Logger
 from backend_util.src.util import sha256
 from backend_util.src.msg import Msg
 from backend_util.src.errorcode import ErrorCode
-from event import EventConsole
+from backend_util.src.event import EventConsole
 
 
 class BlackList:

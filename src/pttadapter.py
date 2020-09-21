@@ -9,7 +9,7 @@ from dialogue import Dialogue
 from backend_util.src.errorcode import ErrorCode
 from backend_util.src.msg import Msg
 from backend_util.src import util
-from event import EventConsole
+from backend_util.src.event import EventConsole
 
 class PTT_Adapter:
     def __init__(self, console_obj):

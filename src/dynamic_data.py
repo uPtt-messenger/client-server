@@ -4,8 +4,8 @@ import time
 import urllib.request
 
 from single_log.log import Logger
-from config import Config
-from event import EventConsole
+from backend_util.src.config import Config
+from backend_util.src.event import EventConsole
 
 
 class DynamicData:

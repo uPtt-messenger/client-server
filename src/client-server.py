@@ -6,14 +6,16 @@ import threading
 from PyPtt import PTT
 from single_log.log import Logger
 
+from backend_util.src.console import Console
+
 import websocketserver
-import config
-from config import Config
+from backend_util.src import config
+from backend_util.src.config import Config
 from command import Command
 from pttadapter import PTT_Adapter
 from feedback import Feedback
-from event import EventConsole
-from console import Console
+from backend_util.src.event import EventConsole
+
 from dynamic_data import DynamicData
 from black_list import BlackList
 
