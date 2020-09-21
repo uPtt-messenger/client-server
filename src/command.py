@@ -1,4 +1,6 @@
 from single_log.log import Logger
+
+from event import EventConsole
 from backend_util.src.errorcode import ErrorCode
 from backend_util.src.msg import Msg
 from tag import Tag
@@ -54,7 +56,8 @@ class Command:
                 '執行登入程序')
 
             res_msg = None
-            for e in self.console.event.login:
+
+            for e in self.console.event.event_chain[EventConsole.key_login]:
                 current_res_msg = e(ptt_id, ptt_pass)
                 if current_res_msg is None:
                     continue
@@ -75,8 +78,9 @@ class Command:
             self.logger.show(
                 Logger.INFO,
                 '執行登出程序')
-            for e in self.console.event.logout:
-                e()
+            # for e in self.console.event.logout:
+            #     e()
+            self.console.event.execute(EventConsole.key_logout)
             self.logger.show(
                 Logger.INFO,
                 '登出程序全數完成')
@@ -85,8 +89,7 @@ class Command:
             self.logger.show(
                 Logger.INFO,
                 '執行終止程序')
-            for e in self.console.event.close:
-                e()
+            self.console.event.execute(EventConsole.key_close)
             self.logger.show(
                 Logger.INFO,
                 '終止程序全數完成')
@@ -108,8 +111,9 @@ class Command:
             self.logger.show(
                 Logger.INFO,
                 '執行丟水球程序')
-            for e in self.console.event.send_waterball:
-                e(waterball_id, waterball_content)
+            # for e in self.console.event.send_waterball:
+            #     e(waterball_id, waterball_content)
+            self.console.event.execute(EventConsole.key_send_waterball, paramter=(waterball_id, waterball_content))
             self.logger.show(
                 Logger.INFO,
                 '丟水球程序全數完成')

@@ -1,7 +1,8 @@
+from single_log.log import Logger
 from backend_util.src.util import sha256
 from backend_util.src.msg import Msg
 from backend_util.src.errorcode import ErrorCode
-from single_log.log import Logger
+from event import EventConsole
 
 
 class BlackList:
@@ -9,7 +10,8 @@ class BlackList:
         self.console = console_boj
         self.logger = Logger('BlackList', self.console.config.log_level, handler=self.console.config.log_handler)
 
-        self.console.event.login.append(self.event_login)
+        self.console.event.register(
+            EventConsole.key_login, self.event_login)
 
     def event_login(self, ptt_id, ptt_pw):
         if self.is_black_user(ptt_id):

@@ -5,6 +5,7 @@ import urllib.request
 
 from single_log.log import Logger
 from config import Config
+from event import EventConsole
 
 
 class DynamicData:
@@ -18,7 +19,8 @@ class DynamicData:
             '啟動')
 
         self.console = console_obj
-        self.console.event.close.append(self.event_close)
+        self.console.event.register(
+            EventConsole.key_close,self.event_close)
 
         self.run_update = True
         self.update_state = False

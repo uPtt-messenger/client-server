@@ -9,7 +9,7 @@ from dialogue import Dialogue
 from backend_util.src.errorcode import ErrorCode
 from backend_util.src.msg import Msg
 from backend_util.src import util
-
+from event import EventConsole
 
 class PTT_Adapter:
     def __init__(self, console_obj):
@@ -23,11 +23,17 @@ class PTT_Adapter:
 
         self.console = console_obj
 
-        console_obj.event.login.append(self.event_login)
-        console_obj.event.logout.append(self.event_logout)
-        console_obj.event.close.append(self.event_logout)
-        console_obj.event.close.append(self.event_close)
-        console_obj.event.send_waterball.append(self.event_send_waterball)
+        self.console.event.register(EventConsole.key_login, self.event_login)
+        self.console.event.register(EventConsole.key_logout, self.event_logout)
+        self.console.event.register(EventConsole.key_close, self.event_logout)
+        self.console.event.register(EventConsole.key_close, self.event_close)
+        self.console.event.register(EventConsole.key_send_waterball, self.event_send_waterball)
+
+        # console_obj.event.login.append(self.event_login)
+        # console_obj.event.logout.append(self.event_logout)
+        # console_obj.event.close.append(self.event_logout)
+        # console_obj.event.close.append(self.event_close)
+        # console_obj.event.send_waterball.append(self.event_send_waterball)
 
         self.dialogue = None
 
@@ -175,8 +181,9 @@ class PTT_Adapter:
                         self.logger.show(
                             Logger.INFO,
                             '執行登入成功程序')
-                        for e in self.console.event.login_success:
-                            e()
+                        # for e in self.console.event.login_success:
+                        #     e()
+                        self.console.event.execute(EventConsole.key_login_success)
                         self.logger.show(
                             Logger.INFO,
                             '登入成功程序全數完成')

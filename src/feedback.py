@@ -2,7 +2,7 @@ import threading
 import time
 
 from single_log.log import Logger
-
+from event import EventConsole
 
 class Feedback:
     def __init__(self, console_obj):
@@ -10,7 +10,7 @@ class Feedback:
         
         self.logger = Logger('FeedBack', self.console.config.log_level, handler=self.console.config.log_handler)
 
-        console_obj.event.close.append(self.event_close)
+        self.console.event.register(EventConsole.key_close, self.event_close)
 
         self.close = False
         self.closed = False
