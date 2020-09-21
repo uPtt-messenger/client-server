@@ -106,7 +106,7 @@ if __name__ == '__main__':
     run_server = True
 
 
-    def event_close():
+    def event_close(p):
         global run_server
         run_server = False
 

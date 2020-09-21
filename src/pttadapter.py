@@ -79,10 +79,10 @@ class PTT_Adapter:
 
         self.has_new_mail = False
 
-    def event_logout(self):
+    def event_logout(self, p):
         self.recv_logout = True
 
-    def event_close(self):
+    def event_close(self, p):
         self.logger.show(
             Logger.INFO,
             '執行終止程序')
@@ -103,7 +103,7 @@ class PTT_Adapter:
 
         return self.res_msg
 
-    def event_send_waterball(self, parameter: tuple):
+    def event_send_waterball(self, parameter):
 
         waterball_id, waterball_content = parameter
 

@@ -44,7 +44,7 @@ class WsServer:
                 Logger.INFO,
                 '啟動成功')
 
-    def stop(self):
+    def stop(self, p):
 
         self.logger.show(
             Logger.INFO,
@@ -55,7 +55,7 @@ class WsServer:
 
         self.run_session = False
         self.run = False
-        # thread.join()
+
         self.logger.show(
             Logger.INFO,
             '終止程序完成')

@@ -20,7 +20,7 @@ class Feedback:
             daemon=True)
         self.thread.start()
 
-    def event_close(self):
+    def event_close(self, p):
         self.logger.show(
             Logger.INFO,
             '執行終止程序')
