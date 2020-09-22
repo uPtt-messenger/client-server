@@ -4,19 +4,19 @@ import time
 import threading
 
 from PyPtt import PTT
-from single_log.log import Logger
+from SingleLog.log import Logger
 
 from backend_util.src.console import Console
-
-import websocketserver
-from backend_util.src import config
+from backend_util.src.dynamic_data import DynamicData
+from backend_util.src.event import EventConsole
 from backend_util.src.config import Config
+from backend_util.src import config
+from backend_util.src.websocketserver import WsServer
+
 from command import Command
 from pttadapter import PTT_Adapter
 from feedback import Feedback
-from backend_util.src.event import EventConsole
 
-from dynamic_data import DynamicData
 from black_list import BlackList
 
 log_path = None
@@ -99,19 +99,13 @@ if __name__ == '__main__':
     feedback = Feedback(console_obj)
     ptt_adapter = PTT_Adapter(console_obj)
 
-    # websocketserver 是特例
-    websocketserver.config = config_obj
-    websocketserver.command = comm_obj
-
     run_server = True
-
 
     def event_close(p):
         global run_server
         run_server = False
 
-
-    ws_server = websocketserver.WsServer(console_obj)
+    ws_server = WsServer(console_obj)
 
     event_console.register(
         EventConsole.key_close,
