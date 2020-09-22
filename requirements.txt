@@ -1,4 +1,4 @@
 websockets
 PyPtt
 pycryptodome
-single_log
+SingleLog
