@@ -4,7 +4,7 @@ import time
 
 from PyPtt import PTT
 
-from single_log.log import Logger
+from SingleLog.log import Logger
 from dialogue import Dialogue
 from backend_util.src.errorcode import ErrorCode
 from backend_util.src.msg import Msg

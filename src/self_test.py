@@ -5,7 +5,7 @@ import json
 import time
 from PyPtt import PTT
 
-from single_log.log import Logger
+from SingleLog.log import Logger
 from backend_util.src.config import Config
 from backend_util.src.msg import Msg
 

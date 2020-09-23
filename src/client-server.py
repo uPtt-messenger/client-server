@@ -49,6 +49,7 @@ if __name__ == '__main__':
 
     console_obj = Console()
     console_obj.config = config_obj
+    console_obj.role = Console.role_client
 
     if len(sys.argv) > 1:
         print(sys.argv)
@@ -123,6 +124,8 @@ if __name__ == '__main__':
             'websocket client-server startup error')
         event_console.execute(EventConsole.key_close)
     else:
+
+        ws_server.connect_setup()
 
         logger.show(
             Logger.INFO,

@@ -1,7 +1,7 @@
 import threading
 import time
 
-from single_log.log import Logger
+from SingleLog.log import Logger
 from backend_util.src.event import EventConsole
 
 class Feedback:

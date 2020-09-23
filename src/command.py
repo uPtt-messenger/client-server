@@ -1,4 +1,4 @@
-from single_log.log import Logger
+from SingleLog.log import Logger
 
 from backend_util.src.event import EventConsole
 from backend_util.src.errorcode import ErrorCode
