@@ -45,7 +45,7 @@ class Feedback:
                 '更新上線狀態')
 
             start_time = end_time = time.time()
-            while end_time - start_time < self.console.config.feedback_frequency:
+            while end_time - start_time < self.console.config.server_frequency:
                 time.sleep(self.console.config.quick_response_time)
                 end_time = time.time()
 

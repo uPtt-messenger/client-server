@@ -116,7 +116,7 @@ if __name__ == '__main__':
         EventConsole.key_close,
         event_close)
 
-    ws_server.start()
+    # ws_server.start()
 
     if ws_server.start_error:
         logger.show(
