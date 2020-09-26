@@ -181,15 +181,7 @@ class PTT_Adapter:
 
                         self.res_msg.add(Msg.key_payload, payload)
 
-                        self.logger.show(
-                            Logger.INFO,
-                            '執行登入成功程序')
-                        # for e in self.console.event.login_success:
-                        #     e()
                         self.console.event.execute(EventConsole.key_login_success)
-                        self.logger.show(
-                            Logger.INFO,
-                            '登入成功程序全數完成')
 
                     except PTT.exceptions.LoginError:
                         self.res_msg = Msg(
@@ -256,11 +248,13 @@ class PTT_Adapter:
                                     code=ErrorCode.Success,
                                     msg='send waterball success')
                             except PTT.exceptions.NoSuchUser:
+                                self.logger.show(Logger.INFO, '無此使用者')
                                 res_msg = Msg(
                                     operate=Msg.key_sendwaterball,
                                     code=ErrorCode.NoSuchUser,
                                     msg='No this user')
                             except PTT.exceptions.UserOffline:
+                                self.logger.show(Logger.INFO, '使用者離線')
                                 res_msg = Msg(
                                     operate=Msg.key_sendwaterball,
                                     code=ErrorCode.UserOffLine,
