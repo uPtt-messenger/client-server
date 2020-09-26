@@ -13,11 +13,8 @@ from backend_util.src.config import Config
 from backend_util.src import config
 from backend_util.src.websocketserver import WsServer
 
-from command import Command
+from backend_util.src.command import Command
 from pttadapter import PTT_Adapter
-from feedback import Feedback
-
-from black_list import BlackList
 
 log_path = None
 
@@ -45,11 +42,11 @@ if __name__ == '__main__':
         config.log_handler = log_to_file
         config.log_level = Logger.TRACE
 
-    config_obj = Config()
-
     console_obj = Console()
-    console_obj.config = config_obj
     console_obj.role = Console.role_client
+
+    config_obj = Config(console_obj)
+    console_obj.config = config_obj
 
     if len(sys.argv) > 1:
         print(sys.argv)
@@ -68,11 +65,6 @@ if __name__ == '__main__':
         'uPtt 版本',
         config_obj.version)
 
-    logger.show(
-        Logger.INFO,
-        '初始化',
-        '啟動')
-
     if '-dev' in sys.argv:
         console_obj.run_mode = 'dev'
 
@@ -81,51 +73,54 @@ if __name__ == '__main__':
         '執行模式',
         console_obj.run_mode)
 
+    logger.show(
+        Logger.INFO,
+        '初始化',
+        '啟動')
+
     event_console = EventConsole(console_obj)
     console_obj.event = event_console
-
-    dynamic_data_obj = DynamicData(console_obj)
-    if not dynamic_data_obj.update_state:
-        logger.show(
-            Logger.INFO,
-            'Update dynamic data error')
-        sys.exit()
-    console_obj.dynamic_data = dynamic_data_obj
 
     comm_obj = Command(console_obj)
     console_obj.command = comm_obj
 
-    black_list = BlackList(console_obj)
+    # black_list = BlackList(console_obj)
 
-    feedback = Feedback(console_obj)
     ptt_adapter = PTT_Adapter(console_obj)
+    console_obj.ptt_adapter = ptt_adapter
 
     run_server = True
+
 
     def event_close(p):
         global run_server
         run_server = False
 
-    ws_server = WsServer(console_obj)
 
-    event_console.register(
-        EventConsole.key_close,
-        ws_server.stop)
+    client_server = WsServer(console_obj, 'ws_client_server')
+    ws_server = WsServer(console_obj, 'ws_server')
+    console_obj.ws_server = ws_server
 
     event_console.register(
         EventConsole.key_close,
         event_close)
 
-    ws_server.start()
+    client_server.start()
 
-    if ws_server.start_error:
+    if client_server.start_error:
         logger.show(
             Logger.INFO,
             'websocket client-server startup error')
         event_console.execute(EventConsole.key_close)
     else:
 
-        ws_server.connect_setup()
+        dynamic_data_obj = DynamicData(console_obj)
+        if not dynamic_data_obj.update_state:
+            logger.show(
+                Logger.INFO,
+                'Update dynamic data error')
+            sys.exit()
+        console_obj.dynamic_data = dynamic_data_obj
 
         logger.show(
             Logger.INFO,
