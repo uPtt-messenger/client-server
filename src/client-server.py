@@ -14,7 +14,7 @@ from backend_util.src import config
 from backend_util.src.websocketserver import WsServer
 
 from backend_util.src.command import Command
-from pttadapter import PTT_Adapter
+from backend_util.src.pttadapter import PTTAdapter
 
 log_path = None
 
@@ -81,12 +81,15 @@ if __name__ == '__main__':
     event_console = EventConsole(console_obj)
     console_obj.event = event_console
 
-    comm_obj = Command(console_obj)
+    comm_obj = Command(console_obj, False)
     console_obj.command = comm_obj
+
+    comm_obj = Command(console_obj, True)
+    console_obj.server_command = comm_obj
 
     # black_list = BlackList(console_obj)
 
-    ptt_adapter = PTT_Adapter(console_obj)
+    ptt_adapter = PTTAdapter(console_obj)
     console_obj.ptt_adapter = ptt_adapter
 
     run_server = True
@@ -97,8 +100,8 @@ if __name__ == '__main__':
         run_server = False
 
 
-    client_server = WsServer(console_obj, 'ws_client_server')
-    ws_server = WsServer(console_obj, 'ws_server')
+    client_server = WsServer(console_obj, False)
+    ws_server = WsServer(console_obj, True)
     console_obj.ws_server = ws_server
 
     event_console.register(
@@ -121,6 +124,8 @@ if __name__ == '__main__':
                 'Update dynamic data error')
             sys.exit()
         console_obj.dynamic_data = dynamic_data_obj
+
+        ws_server.connect_setup()
 
         logger.show(
             Logger.INFO,
