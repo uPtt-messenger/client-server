@@ -12,9 +12,9 @@ from backend_util.src.event import EventConsole
 from backend_util.src.config import Config
 from backend_util.src import config
 from backend_util.src.websocketserver import WsServer
-
 from backend_util.src.command import Command
 from backend_util.src.pttadapter import PTTAdapter
+from backend_util.src.crypto import Crypto
 
 log_path = None
 
@@ -91,6 +91,9 @@ if __name__ == '__main__':
 
     ptt_adapter = PTTAdapter(console_obj)
     console_obj.ptt_adapter = ptt_adapter
+
+    crypto_obj = Crypto(console_obj)
+    console_obj.crypto = crypto_obj
 
     run_server = True
 
