@@ -129,18 +129,24 @@ if __name__ == '__main__':
         console_obj.dynamic_data = dynamic_data_obj
 
         ws_server.connect_setup()
+        time.sleep(3)
+        if ws_server.connect_server_error:
+            logger.show(
+                Logger.INFO,
+                'websocket ws_server connect_setup error')
+            event_console.execute(EventConsole.key_close)
+        else:
+            logger.show(
+                Logger.INFO,
+                '初始化',
+                '完成')
 
-        logger.show(
-            Logger.INFO,
-            '初始化',
-            '完成')
-
-        while run_server:
-            try:
-                time.sleep(0.5)
-            except KeyboardInterrupt:
-                event_console.execute(EventConsole.key_close)
-                break
+            while run_server:
+                try:
+                    time.sleep(0.5)
+                except KeyboardInterrupt:
+                    event_console.execute(EventConsole.key_close)
+                    break
 
     logger.show(
         Logger.INFO,
