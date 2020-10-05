@@ -9,7 +9,6 @@ from SingleLog.log import Logger
 from backend_util.src.console import Console
 from backend_util.src.dynamic_data import DynamicData
 from backend_util.src.event import EventConsole
-from backend_util.src.event import Event
 from backend_util.src.config import Config
 from backend_util.src import config
 from backend_util.src.websocketserver import WsServer
@@ -82,8 +81,6 @@ if __name__ == '__main__':
 
     event_console = EventConsole(console_obj)
     console_obj.event = event_console
-
-    event = Event(console_obj)
 
     comm_obj = Command(console_obj, False)
     console_obj.command = comm_obj
