@@ -16,6 +16,7 @@ from backend_util.src.websocketserver import WsServer
 from backend_util.src.command import Command
 from backend_util.src.pttadapter import PTTAdapter
 from backend_util.src.crypto import Crypto
+from backend_util.src.process import Process
 
 log_path = None
 
@@ -90,7 +91,8 @@ if __name__ == '__main__':
     comm_obj = Command(console_obj, True)
     console_obj.server_command = comm_obj
 
-    # black_list = BlackList(console_obj)
+    process_obj = Process(console_obj)
+    console_obj.process = process_obj
 
     ptt_adapter = PTTAdapter(console_obj)
     console_obj.ptt_adapter = ptt_adapter
