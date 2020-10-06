@@ -1,0 +1,5 @@
+websockets
+PyPtt
+pycryptodome
+SingleLog
+pyinstaller
