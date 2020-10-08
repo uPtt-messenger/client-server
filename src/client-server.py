@@ -16,6 +16,7 @@ from backend_util.src.command import Command
 from backend_util.src.pttadapter import PTTAdapter
 from backend_util.src.crypto import Crypto
 from backend_util.src.process import Process
+from backend_util.src.data import DictData
 
 log_path = None
 
@@ -96,6 +97,9 @@ if __name__ == '__main__':
 
     crypto_obj = Crypto(console_obj)
     console_obj.crypto = crypto_obj
+
+    user_public_key = DictData(console_obj, 'user_public_key', None)
+    console_obj.user_public_key = user_public_key
 
     run_server = True
 
